@@ -1,13 +1,14 @@
 import type { ReactNode } from 'react';
 
 import CiboLogo from '@/components/cibo-logo';
+import FoodMarquee from '@/components/food-marquee';
 import HeroSlideshow from '@/components/hero-slideshow';
 import LightboxImage from '@/components/lightbox-image';
 import MenuTabs from '@/components/menu-tabs';
 import OpenTableWidget from '@/components/opentable-widget';
 import ResponsiveImg from '@/components/responsive-img';
 import Reveal from '@/components/reveal';
-import RoomPicker from '@/components/room-picker';
+import RoomPanels from '@/components/room-panels';
 
 const PHONE_HREF = 'tel:+14165043939';
 const PHONE_LABEL = '416.504.3939';
@@ -54,26 +55,10 @@ const JSON_LD = {
 
 // The weekly specials board. Happy hour runs every day we're open; the rest sit on their days.
 const OFFERS = {
-    pizza: {
-        title: 'Half-Price Pizza',
-        detail: 'Every pizza on the menu at 50% off',
-        tone: 'bg-[#a8302a] text-[#f4efe4]'
-    },
-    pasta: {
-        title: '$15 Pasta',
-        detail: 'Settebello: seven signature pastas, $15 each',
-        tone: 'bg-[#f4efe4] text-[#141010]'
-    },
-    late: {
-        title: 'Late Night',
-        detail: 'Open until 2am, cocktails and bottle service',
-        tone: 'bg-[#0e0b09] text-[#f1e8d6] ring-1 ring-inset ring-[#f1e8d6]/25'
-    },
-    mimosa: {
-        title: 'Bottomless Mimosas · $30',
-        detail: 'Brunch from 11:30am to 4pm',
-        tone: 'bg-[#2f5d3f] text-[#f4efe4]'
-    }
+    pizza: { title: 'Half-Price Pizza', detail: 'Every pizza 50% off', dot: 'bg-[#c8322f]' },
+    pasta: { title: '$15 Pasta', detail: 'Settebello, seven signature pastas', dot: 'bg-[#f1e8d6]' },
+    late: { title: 'Late Night', detail: 'Open until 2am', dot: 'bg-[#8a7a66]' },
+    mimosa: { title: 'Bottomless Mimosas', detail: '$30 · brunch 11:30am to 4pm', dot: 'bg-[#3f8a5a]' }
 };
 
 const WEEK: { day: string; en: string; offers: (keyof typeof OFFERS)[] }[] = [
@@ -144,15 +129,16 @@ const Page = () => {
         <main>
             <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
 
-            {/* ── Navigation: wordmark left, call button right, tricolore hairline underneath ── */}
+            {/* ── Navigation: wordmark centred with KING WEST beneath it, call button right, tricolore
+                 hairline underneath. Phones keep the wordmark left so it never meets the button. ── */}
             <nav className='fixed top-0 z-50 w-full bg-[#0e0b09]'>
-                <div className='flex h-16 items-center justify-between px-5 md:px-8'>
+                <div className='relative flex h-16 items-center justify-end px-5 md:px-8'>
                     <a
                         href='#top'
-                        className='flex items-center gap-3'
+                        className='absolute top-1/2 left-5 flex -translate-y-1/2 flex-col items-center md:left-1/2 md:-translate-x-1/2'
                         aria-label='Cibo Wine Bar King West, back to top'>
-                        <CiboLogo className='h-10 w-auto text-[#f1e8d6]' />
-                        <span className='hidden border-l border-[#f1e8d6]/30 pl-3 text-[0.7rem] font-medium tracking-[0.45em] text-[#f1e8d6]/75 uppercase sm:block'>
+                        <CiboLogo className='h-8 w-auto text-[#f1e8d6]' />
+                        <span className='mt-1 pl-[0.45em] text-[0.55rem] font-medium tracking-[0.45em] text-[#f1e8d6]/75 uppercase'>
                             King West
                         </span>
                     </a>
@@ -169,24 +155,35 @@ const Page = () => {
                 <div className='grid flex-1 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]'>
                     <HeroSlideshow className='h-[36svh] min-h-[240px] md:order-2 md:h-auto' />
 
-                    <div className='flex items-center px-6 py-10 md:order-1 md:px-12 md:py-14 lg:px-20'>
-                        <div className='hero-logo'>
-                            <h1>
-                                <CiboLogo
-                                    title='Cibo Wine Bar King West: Italian restaurant and wine bar in Toronto'
-                                    className='w-40 text-[#f1e8d6] md:w-64'
-                                />
-                                <span className='mt-4 block text-sm font-medium tracking-[0.6em] text-[#f1e8d6]/80 uppercase'>
-                                    Wine Bar
-                                </span>
-                            </h1>
-                            <p className='font-stencil mt-8 text-3xl leading-tight text-[#f1e8d6] md:mt-12 md:text-4xl'>
+                    {/* Wordmark at the top, the pitch and call anchored to the bottom */}
+                    <div className='flex flex-col justify-between gap-12 px-6 pt-10 pb-12 md:order-1 md:px-12 md:py-14 lg:px-20'>
+                        <h1 className='hero-logo'>
+                            <CiboLogo
+                                title='Cibo Wine Bar King West: Italian restaurant and wine bar in Toronto'
+                                className='w-36 text-[#f1e8d6] md:w-52'
+                            />
+                            <span className='mt-3 block text-xs font-medium tracking-[0.6em] text-[#f1e8d6]/75 uppercase md:text-sm'>
+                                Wine Bar
+                            </span>
+                        </h1>
+
+                        <div className='hero-logo max-w-md'>
+                            <p className='font-stencil text-4xl leading-[0.95] text-[#f1e8d6] md:text-5xl'>
                                 Rustic Italian
                                 <br />
                                 on King West
                             </p>
-                            <p className='mt-4 text-[#f1e8d6]/65'>Happy hour every day, 2 to 6:30pm</p>
-                            <CallButton className='mt-8 md:mt-10' />
+                            <div className='mt-6 h-px w-16 bg-[#e0a253]' aria-hidden='true' />
+                            <p className='mt-6 text-lg leading-relaxed text-[#f1e8d6]/85'>
+                                <span className='font-bold text-[#e0a253]'>Happy hour</span> every day from 2 to 6:30pm,
+                                all drinks at half price.
+                            </p>
+                            <div className='mt-8 flex flex-wrap items-center gap-x-6 gap-y-3'>
+                                <CallButton />
+                                <span className='text-xs font-bold tracking-[0.2em] text-[#f1e8d6]/55 uppercase'>
+                                    522 King St West
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -198,61 +195,67 @@ const Page = () => {
                 </div>
             </section>
 
-            {/* ── La Settimana: a specials board. Happy hour across the top, then a row per day with that
-                 day's offers as equal blocks ── */}
-            <section id='week' className='bg-[#16110d] px-6 py-20 md:px-12 md:py-28'>
-                <div className='mx-auto max-w-6xl'>
-                    <Reveal className='flex flex-col gap-4 md:flex-row md:items-end md:justify-between'>
+            {/* ── La Settimana: set like a printed specials card. Happy hour as a single line across the
+                 top, then each day with its offers on dotted leaders ── */}
+            <section id='week' className='relative overflow-hidden bg-[#16110d] px-6 py-20 md:px-12 md:py-28'>
+                <ResponsiveImg
+                    src='/images/pappardelle-spread.jpg'
+                    sizes='100vw'
+                    alt=''
+                    loading='lazy'
+                    className='absolute inset-0 h-full w-full object-cover object-[50%_45%]'
+                />
+                <div className='absolute inset-0 bg-[#0e0b09]/80' />
+                <div className='absolute inset-0 bg-gradient-to-b from-[#0e0b09]/60 via-transparent to-[#0e0b09]/70' />
+                <div className='relative mx-auto max-w-4xl'>
+                    <Reveal className='text-center'>
                         <Title className='text-[#f1e8d6]'>La Settimana</Title>
-                        <p className='text-lg text-[#f1e8d6]/65'>Tuesday to Sunday · Closed Mondays</p>
+                        <p className='mt-4 text-[#f1e8d6]/60'>Tuesday to Sunday · Closed Mondays</p>
                     </Reveal>
 
                     <Reveal className='mt-12'>
-                        <div className='flex flex-col gap-3 bg-[#e0a253] px-6 py-6 text-[#141010] md:flex-row md:items-center md:justify-between md:px-8 md:py-7'>
-                            <div>
-                                <div className='text-xs font-bold tracking-[0.25em] uppercase opacity-70'>
-                                    Every day · 2 to 6:30pm
-                                </div>
-                                <h3 className='font-stencil mt-2 text-3xl md:text-4xl'>Happy Hour</h3>
-                            </div>
-                            <p className='font-stencil text-2xl md:text-3xl'>Half-Price Drinks</p>
+                        <div className='flex flex-col items-center gap-1 border-y border-[#e0a253]/40 py-6 text-center md:flex-row md:justify-between md:gap-6 md:text-left'>
+                            <span className='font-stencil text-2xl text-[#e0a253]'>Happy Hour</span>
+                            <span className='text-[#f1e8d6]/85'>Every day, 2 to 6:30pm · all drinks half price</span>
                         </div>
 
-                        <ul className='mt-3'>
+                        <dl className='mt-4'>
                             {WEEK.map((row) => (
-                                <li
+                                <div
                                     key={row.day}
-                                    className='grid gap-3 border-b border-[#f1e8d6]/12 py-3 md:grid-cols-[220px_1fr] md:items-stretch md:gap-6'>
-                                    <div className='flex items-baseline gap-3 md:flex-col md:justify-center md:gap-1'>
-                                        <span className='font-stencil text-2xl text-[#f1e8d6] md:text-3xl'>
-                                            {row.day}
-                                        </span>
-                                        <span className='text-xs font-bold tracking-[0.2em] text-[#f1e8d6]/50 uppercase'>
+                                    className='grid gap-2 border-b border-[#f1e8d6]/10 py-5 md:grid-cols-[180px_1fr] md:gap-8'>
+                                    <dt className='flex items-baseline gap-3 md:flex-col md:gap-0.5'>
+                                        <span className='font-stencil text-xl text-[#f1e8d6]'>{row.day}</span>
+                                        <span className='text-xs tracking-[0.2em] text-[#f1e8d6]/45 uppercase'>
                                             {row.en}
                                         </span>
-                                    </div>
-                                    <div className='grid gap-3 sm:auto-cols-fr sm:grid-flow-col'>
+                                    </dt>
+                                    <dd className='space-y-2.5 md:pt-0.5'>
                                         {row.offers.map((key) => {
                                             const offer = OFFERS[key];
 
                                             return (
-                                                <div key={key} className={`px-5 py-3.5 md:px-6 ${offer.tone}`}>
-                                                    <div className='font-stencil text-xl md:text-2xl'>
+                                                <div key={key} className='flex flex-wrap items-baseline gap-x-3'>
+                                                    <span
+                                                        className={`h-2 w-2 shrink-0 translate-y-[-1px] rounded-full ${offer.dot}`}
+                                                        aria-hidden='true'
+                                                    />
+                                                    <span className='font-bold tracking-wide text-[#f1e8d6] uppercase'>
                                                         {offer.title}
-                                                    </div>
-                                                    <div className='mt-1 text-[0.9375rem] opacity-80'>
+                                                    </span>
+                                                    <span className='mb-1 hidden flex-1 border-b border-dotted border-[#f1e8d6]/25 sm:block' />
+                                                    <span className='w-full pl-5 text-[0.9375rem] text-[#f1e8d6]/65 sm:w-auto sm:pl-0 sm:text-right'>
                                                         {offer.detail}
-                                                    </div>
+                                                    </span>
                                                 </div>
                                             );
                                         })}
-                                    </div>
-                                </li>
+                                    </dd>
+                                </div>
                             ))}
-                        </ul>
-                        <p className='mt-6 text-sm text-[#f1e8d6]/60'>
-                            At lunch: <span className='font-bold text-[#f1e8d6]/85'>Lunch in Fretta</span>, two courses
-                            for $25.
+                        </dl>
+                        <p className='mt-8 text-center text-sm text-[#f1e8d6]/55'>
+                            At lunch: <span className='text-[#f1e8d6]/85'>Lunch in Fretta</span>, two courses for $25.
                         </p>
                     </Reveal>
                 </div>
@@ -290,7 +293,7 @@ const Page = () => {
             </section>
 
             {/* ── Il Menu: printed on cream paper, like the card at the table ── */}
-            <section id='menu' className='bg-[#f4efe4] px-6 py-20 text-[#141010] md:px-12 md:py-28'>
+            <section id='menu' className='bg-[#f4efe4] px-6 pt-20 pb-14 text-[#141010] md:px-12 md:pt-28 md:pb-16'>
                 <div className='mx-auto max-w-6xl'>
                     <Reveal className='flex flex-col gap-6 border-b-4 border-[#141010] pb-8 md:flex-row md:items-end md:justify-between'>
                         <h2 className='font-stencil text-7xl leading-none md:text-[140px]'>Il Menu</h2>
@@ -314,6 +317,11 @@ const Page = () => {
                         </a>
                     </Reveal>
                 </div>
+            </section>
+
+            {/* ── A slow strip of dishes running under the menu, still on the cream paper ── */}
+            <section aria-label='From the kitchen' className='bg-[#f4efe4]'>
+                <FoodMarquee />
             </section>
 
             {/* ── Vino: photos left, the wine bar right ── */}
@@ -388,23 +396,25 @@ const Page = () => {
                 </div>
             </section>
 
-            {/* ── Private dining: the rooms read like a list; hover or tap one to see it ── */}
+            {/* ── Private dining: the rooms as photo panels; hover or tap one to open it ── */}
             <section id='events' className='bg-[#0e0b09] px-6 py-20 md:px-12 md:py-28'>
-                <Reveal className='mx-auto max-w-6xl'>
-                    <RoomPicker
-                        intro={
-                            <>
-                                <Label>Private Dining & Events</Label>
-                                <Title className='mt-5 text-[#f1e8d6]'>Your Own Room at Cibo</Title>
-                                <p className='mt-7 max-w-xl text-lg leading-relaxed text-[#f1e8d6]/80'>
-                                    Four private rooms with natural daylight and full audio and video, plus a lounge for
-                                    standing receptions. Group menus for lunch, dinner and cocktail parties start at $45
-                                    per person.
-                                </p>
-                            </>
-                        }
-                        actions={
-                            <div className='mt-10 flex flex-wrap items-center gap-4'>
+                <div className='mx-auto max-w-7xl'>
+                    <Reveal className='grid gap-8 md:grid-cols-[1.1fr_1fr] md:items-end'>
+                        <div>
+                            <Label>Private Dining & Events</Label>
+                            <Title className='mt-5 text-[#f1e8d6]'>
+                                Rooms for 12
+                                <br />
+                                to 110
+                            </Title>
+                        </div>
+                        <div>
+                            <p className='text-lg leading-relaxed text-[#f1e8d6]/80'>
+                                Four private rooms with natural daylight and full audio and video, from a rustic wine
+                                cellar to sleek frosted glass, plus a lounge for standing receptions. Group menus start
+                                at $45 per person.
+                            </p>
+                            <div className='mt-7 flex flex-wrap items-center gap-4'>
                                 <a href={EVENTS_PHONE_HREF} className='btn-cibo px-6 py-4 text-sm md:px-8 md:text-base'>
                                     Call to Plan Your Event
                                 </a>
@@ -412,9 +422,12 @@ const Page = () => {
                                     Email the Events Team
                                 </a>
                             </div>
-                        }
-                    />
-                </Reveal>
+                        </div>
+                    </Reveal>
+                    <Reveal className='mt-12'>
+                        <RoomPanels />
+                    </Reveal>
+                </div>
             </section>
 
             {/* ── Reserve: full-width photo of the table under a dark wash, copy and booking on top ── */}

@@ -267,6 +267,16 @@
   animation: hero-logo-in 0.9s ease-out 0.1s both;
 }
 
+/* Dish strip under the menu: two identical halves slide left by half the track for a seamless loop */
+@keyframes food-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+.food-marquee {
+  animation: food-marquee 70s linear infinite;
+  will-change: transform;
+}
+
 /* Scroll reveal */
 .reveal {
   opacity: 0;
@@ -279,7 +289,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-logo { animation: none; }
+  .hero-logo, .food-marquee { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
 

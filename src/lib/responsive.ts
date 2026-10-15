@@ -17,3 +17,10 @@ export const responsive = (src: string) => {
         full: largest
     };
 };
+
+// Width-to-height ratio of an original, so a photo can hold its space before it loads.
+export const aspect = (src: string) => {
+    const entry = images[src];
+
+    return entry ? entry.w / entry.h : 1;
+};

@@ -11,9 +11,9 @@ const SLIDES = [
         position: 'object-center'
     },
     {
-        src: '/images/pappardelle-spread.jpg',
-        alt: 'Pappardelle with burrata and prosciutto on a table to share',
-        position: 'object-[50%_60%]'
+        src: '/images/pasta-gnocchi.jpg',
+        alt: 'House-made gnocchi with basil beside fresh pasta and tomatoes',
+        position: 'object-[60%_50%]'
     },
     {
         src: '/images/wine-toast.jpg',
