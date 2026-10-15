@@ -1,0 +1,250 @@
+{
+ "/images/cibo-sign.jpg": {
+  "w": 800,
+  "h": 1200,
+  "variants": [
+   {
+    "src": "/images/cibo-sign-sm.webp",
+    "w": 800
+   }
+  ]
+ },
+ "/images/dining-room.jpg": {
+  "w": 2500,
+  "h": 1667,
+  "variants": [
+   {
+    "src": "/images/dining-room-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/dining-room-lg.webp",
+    "w": 1800
+   }
+  ]
+ },
+ "/images/gin-tonic.jpg": {
+  "w": 2000,
+  "h": 1333,
+  "variants": [
+   {
+    "src": "/images/gin-tonic-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/gin-tonic-lg.webp",
+    "w": 1800
+   }
+  ]
+ },
+ "/images/grilled-calamari.jpg": {
+  "w": 1080,
+  "h": 1350,
+  "variants": [
+   {
+    "src": "/images/grilled-calamari-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/grilled-calamari-lg.webp",
+    "w": 1080
+   }
+  ]
+ },
+ "/images/pappardelle-ragu.jpg": {
+  "w": 1080,
+  "h": 1350,
+  "variants": [
+   {
+    "src": "/images/pappardelle-ragu-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/pappardelle-ragu-lg.webp",
+    "w": 1080
+   }
+  ]
+ },
+ "/images/pappardelle-spread.jpg": {
+  "w": 3427,
+  "h": 5141,
+  "variants": [
+   {
+    "src": "/images/pappardelle-spread-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/pappardelle-spread-lg.webp",
+    "w": 1800
+   }
+  ]
+ },
+ "/images/pasta-gnocchi.jpg": {
+  "w": 2500,
+  "h": 1667,
+  "variants": [
+   {
+    "src": "/images/pasta-gnocchi-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/pasta-gnocchi-lg.webp",
+    "w": 1800
+   }
+  ]
+ },
+ "/images/patio-cocktails.jpg": {
+  "w": 3623,
+  "h": 5434,
+  "variants": [
+   {
+    "src": "/images/patio-cocktails-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/patio-cocktails-lg.webp",
+    "w": 1800
+   }
+  ]
+ },
+ "/images/pizza-yolk.jpg": {
+  "w": 2500,
+  "h": 1667,
+  "variants": [
+   {
+    "src": "/images/pizza-yolk-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/pizza-yolk-lg.webp",
+    "w": 1800
+   }
+  ]
+ },
+ "/images/room-milano.jpg": {
+  "w": 2048,
+  "h": 2048,
+  "variants": [
+   {
+    "src": "/images/room-milano-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/room-milano-lg.webp",
+    "w": 1800
+   }
+  ]
+ },
+ "/images/room-torino.jpg": {
+  "w": 2048,
+  "h": 2048,
+  "variants": [
+   {
+    "src": "/images/room-torino-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/room-torino-lg.webp",
+    "w": 1800
+   }
+  ]
+ },
+ "/images/room-toscana.jpg": {
+  "w": 2048,
+  "h": 2048,
+  "variants": [
+   {
+    "src": "/images/room-toscana-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/room-toscana-lg.webp",
+    "w": 1800
+   }
+  ]
+ },
+ "/images/room-verona.jpg": {
+  "w": 2001,
+  "h": 3000,
+  "variants": [
+   {
+    "src": "/images/room-verona-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/room-verona-lg.webp",
+    "w": 1800
+   }
+  ]
+ },
+ "/images/salmon.jpg": {
+  "w": 1536,
+  "h": 1920,
+  "variants": [
+   {
+    "src": "/images/salmon-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/salmon-lg.webp",
+    "w": 1536
+   }
+  ]
+ },
+ "/images/short-rib-eggs.jpg": {
+  "w": 1536,
+  "h": 1920,
+  "variants": [
+   {
+    "src": "/images/short-rib-eggs-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/short-rib-eggs-lg.webp",
+    "w": 1536
+   }
+  ]
+ },
+ "/images/table-toast.jpg": {
+  "w": 4000,
+  "h": 6000,
+  "variants": [
+   {
+    "src": "/images/table-toast-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/table-toast-lg.webp",
+    "w": 1800
+   }
+  ]
+ },
+ "/images/tagliatelle-mushroom.jpg": {
+  "w": 3534,
+  "h": 5301,
+  "variants": [
+   {
+    "src": "/images/tagliatelle-mushroom-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/tagliatelle-mushroom-lg.webp",
+    "w": 1800
+   }
+  ]
+ },
+ "/images/wine-toast.jpg": {
+  "w": 1080,
+  "h": 1350,
+  "variants": [
+   {
+    "src": "/images/wine-toast-sm.webp",
+    "w": 800
+   },
+   {
+    "src": "/images/wine-toast-lg.webp",
+    "w": 1080
+   }
+  ]
+ }
+}
