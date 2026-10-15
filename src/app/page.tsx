@@ -52,45 +52,37 @@ const JSON_LD = {
     sameAs: ['https://www.instagram.com/cibo_winebar/']
 };
 
-const DAYS = ['Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'];
-
-// The weekly board: each offer is a bar spanning the days it runs (Tuesday is column 1, closed Mondays).
-const WEEK = [
-    {
-        title: 'Happy Hour · Half-Price Drinks',
-        when: 'Every day we’re open · 2 to 6:30pm',
-        text: 'Every drink at half price, every afternoon of the week.',
-        span: 'md:col-start-1 md:col-span-6 md:row-start-1',
-        tone: 'bg-[#e0a253] text-[#141010]'
-    },
-    {
+// The weekly specials board. Happy hour runs every day we're open; the rest sit on their days.
+const OFFERS = {
+    pizza: {
         title: 'Half-Price Pizza',
-        when: 'Tuesday',
-        text: 'Every pizza on the menu at 50% off.',
-        span: 'md:col-start-1 md:col-span-1 md:row-start-2',
+        detail: 'Every pizza on the menu at 50% off',
         tone: 'bg-[#a8302a] text-[#f4efe4]'
     },
-    {
+    pasta: {
         title: '$15 Pasta',
-        when: 'Wednesday · Settebello',
-        text: 'Seven signature pastas, $15 each.',
-        span: 'md:col-start-2 md:col-span-1 md:row-start-2',
+        detail: 'Settebello: seven signature pastas, $15 each',
         tone: 'bg-[#f4efe4] text-[#141010]'
     },
-    {
-        title: 'Late Nights',
-        when: 'Thursday to Saturday',
-        text: 'Open until 2am, with cocktails and bottle service.',
-        span: 'md:col-start-3 md:col-span-3 md:row-start-3',
-        tone: 'border border-[#f1e8d6]/20 bg-[#0e0b09] text-[#f1e8d6]'
+    late: {
+        title: 'Late Night',
+        detail: 'Open until 2am, cocktails and bottle service',
+        tone: 'bg-[#0e0b09] text-[#f1e8d6] ring-1 ring-inset ring-[#f1e8d6]/25'
     },
-    {
+    mimosa: {
         title: 'Bottomless Mimosas · $30',
-        when: 'Saturday & Sunday · 11:30am to 4pm',
-        text: 'Orange juice and prosecco, poured all brunch long.',
-        span: 'md:col-start-5 md:col-span-2 md:row-start-2',
+        detail: 'Brunch from 11:30am to 4pm',
         tone: 'bg-[#2f5d3f] text-[#f4efe4]'
     }
+};
+
+const WEEK: { day: string; en: string; offers: (keyof typeof OFFERS)[] }[] = [
+    { day: 'Martedì', en: 'Tuesday', offers: ['pizza'] },
+    { day: 'Mercoledì', en: 'Wednesday', offers: ['pasta'] },
+    { day: 'Giovedì', en: 'Thursday', offers: ['late'] },
+    { day: 'Venerdì', en: 'Friday', offers: ['late'] },
+    { day: 'Sabato', en: 'Saturday', offers: ['mimosa', 'late'] },
+    { day: 'Domenica', en: 'Sunday', offers: ['mimosa'] }
 ];
 
 // Shown at their natural proportions, uncropped.
@@ -206,38 +198,58 @@ const Page = () => {
                 </div>
             </section>
 
-            {/* ── La Settimana: the week laid out as a board, each offer spanning its days ── */}
+            {/* ── La Settimana: a specials board. Happy hour across the top, then a row per day with that
+                 day's offers as equal blocks ── */}
             <section id='week' className='bg-[#16110d] px-6 py-20 md:px-12 md:py-28'>
                 <div className='mx-auto max-w-6xl'>
-                    <Reveal className='flex flex-col gap-6 md:flex-row md:items-end md:justify-between'>
+                    <Reveal className='flex flex-col gap-4 md:flex-row md:items-end md:justify-between'>
                         <Title className='text-[#f1e8d6]'>La Settimana</Title>
-                        <p className='max-w-sm text-lg leading-relaxed text-[#f1e8d6]/70 md:text-right'>
-                            Something on every day of the week.
-                        </p>
+                        <p className='text-lg text-[#f1e8d6]/65'>Tuesday to Sunday · Closed Mondays</p>
                     </Reveal>
 
-                    <Reveal className='mt-14'>
-                        {/* Day headings only on larger screens; phones read the days on each offer */}
-                        <div className='hidden grid-cols-6 gap-2 border-b border-[#f1e8d6]/20 pb-4 md:grid'>
-                            {DAYS.map((day) => (
-                                <div key={day} className='font-stencil text-lg text-[#f1e8d6]/80 lg:text-xl'>
-                                    {day}
+                    <Reveal className='mt-12'>
+                        <div className='flex flex-col gap-3 bg-[#e0a253] px-6 py-6 text-[#141010] md:flex-row md:items-center md:justify-between md:px-8 md:py-7'>
+                            <div>
+                                <div className='text-xs font-bold tracking-[0.25em] uppercase opacity-70'>
+                                    Every day · 2 to 6:30pm
                                 </div>
-                            ))}
+                                <h3 className='font-stencil mt-2 text-3xl md:text-4xl'>Happy Hour</h3>
+                            </div>
+                            <p className='font-stencil text-2xl md:text-3xl'>Half-Price Drinks</p>
                         </div>
-                        <div className='mt-4 grid gap-2 md:grid-cols-6 md:grid-rows-[auto_auto_auto]'>
-                            {WEEK.map((item) => (
-                                <div key={item.title} className={`flex flex-col p-6 ${item.span} ${item.tone}`}>
-                                    <div className='text-xs font-bold tracking-[0.2em] uppercase opacity-70'>
-                                        {item.when}
+
+                        <ul className='mt-3'>
+                            {WEEK.map((row) => (
+                                <li
+                                    key={row.day}
+                                    className='grid gap-3 border-b border-[#f1e8d6]/12 py-3 md:grid-cols-[220px_1fr] md:items-stretch md:gap-6'>
+                                    <div className='flex items-baseline gap-3 md:flex-col md:justify-center md:gap-1'>
+                                        <span className='font-stencil text-2xl text-[#f1e8d6] md:text-3xl'>
+                                            {row.day}
+                                        </span>
+                                        <span className='text-xs font-bold tracking-[0.2em] text-[#f1e8d6]/50 uppercase'>
+                                            {row.en}
+                                        </span>
                                     </div>
-                                    <h3 className='font-stencil mt-3 text-2xl leading-tight md:text-[1.45rem] lg:text-[1.7rem]'>
-                                        {item.title}
-                                    </h3>
-                                    <p className='mt-2 text-[0.9375rem] leading-relaxed opacity-80'>{item.text}</p>
-                                </div>
+                                    <div className='grid gap-3 sm:auto-cols-fr sm:grid-flow-col'>
+                                        {row.offers.map((key) => {
+                                            const offer = OFFERS[key];
+
+                                            return (
+                                                <div key={key} className={`px-5 py-3.5 md:px-6 ${offer.tone}`}>
+                                                    <div className='font-stencil text-xl md:text-2xl'>
+                                                        {offer.title}
+                                                    </div>
+                                                    <div className='mt-1 text-[0.9375rem] opacity-80'>
+                                                        {offer.detail}
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </li>
                             ))}
-                        </div>
+                        </ul>
                         <p className='mt-6 text-sm text-[#f1e8d6]/60'>
                             At lunch: <span className='font-bold text-[#f1e8d6]/85'>Lunch in Fretta</span>, two courses
                             for $25.
