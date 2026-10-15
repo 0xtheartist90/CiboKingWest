@@ -152,12 +152,18 @@ const Page = () => {
             {/* ── Hero: the wordmark on black beside the dining room, with the booking strip underneath.
                  Phones get the photo first, then the wordmark. ── */}
             <section id='top' className='mt-[67px] flex flex-col bg-[#0e0b09] md:min-h-[calc(100svh-67px)]'>
-                <div className='grid flex-1 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]'>
-                    <HeroSlideshow className='h-[36svh] min-h-[240px] md:order-2 md:h-auto' />
+                <div className='relative grid flex-1 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]'>
+                    {/* Phones: the photos fill the hero behind the copy. Larger screens: their own column. */}
+                    <HeroSlideshow className='absolute inset-0 md:relative md:inset-auto md:order-2' />
+                    <div
+                        className='absolute inset-0 bg-gradient-to-t from-[#0e0b09] via-[#0e0b09]/70 to-[#0e0b09]/20 md:hidden'
+                        aria-hidden='true'
+                    />
 
                     {/* Wordmark at the top, the pitch and call anchored to the bottom */}
-                    <div className='flex flex-col justify-between gap-12 px-6 pt-10 pb-12 md:order-1 md:px-12 md:py-14 lg:px-20'>
-                        <h1 className='hero-logo'>
+                    <div className='relative flex min-h-[calc(100svh-67px-140px)] flex-col justify-end gap-12 px-6 pt-10 pb-10 md:order-1 md:min-h-0 md:justify-between md:px-12 md:py-14 lg:px-20'>
+                        {/* The wordmark is already in the nav on phones, so it only shows here on larger screens */}
+                        <h1 className='hero-logo sr-only md:not-sr-only'>
                             <CiboLogo
                                 title='Cibo Wine Bar King West: Italian restaurant and wine bar in Toronto'
                                 className='w-36 text-[#f1e8d6] md:w-52'

@@ -64,7 +64,7 @@ const HeroSlideshow = ({ className = '' }: { className?: string }) => {
     }, []);
 
     return (
-        <div className={`relative overflow-hidden ${className}`}>
+        <div className={`overflow-hidden ${className}`}>
             {SLIDES.map((slide, i) => {
                 const on = i === active;
                 const showing = on || i === leaving;
@@ -89,7 +89,7 @@ const HeroSlideshow = ({ className = '' }: { className?: string }) => {
                 );
             })}
             {/* Progress ticks, one per photo */}
-            <div className='absolute right-5 bottom-5 flex gap-1.5' aria-hidden='true'>
+            <div className='absolute right-5 bottom-5 hidden gap-1.5 md:flex' aria-hidden='true'>
                 {SLIDES.map((slide, i) => (
                     <span
                         key={slide.src}
