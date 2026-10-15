@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import CiboLogo from '@/components/cibo-logo';
+import HeroSlideshow from '@/components/hero-slideshow';
 import LightboxImage from '@/components/lightbox-image';
 import MenuTabs from '@/components/menu-tabs';
 import OpenTableWidget from '@/components/opentable-widget';
@@ -174,15 +175,7 @@ const Page = () => {
                  Phones get the photo first, then the wordmark. ── */}
             <section id='top' className='mt-[67px] flex flex-col bg-[#0e0b09] md:min-h-[calc(100svh-67px)]'>
                 <div className='grid flex-1 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]'>
-                    <div className='relative h-[36svh] min-h-[240px] overflow-hidden md:order-2 md:h-auto'>
-                        <ResponsiveImg
-                            src='/images/dining-room.jpg'
-                            sizes='(max-width: 767px) 100vw, 60vw'
-                            alt='The long dining room at Cibo King West with brick arches, wood beams and candlelit tables'
-                            fetchPriority='high'
-                            className='hero-zoom absolute inset-0 h-full w-full object-cover'
-                        />
-                    </div>
+                    <HeroSlideshow className='h-[36svh] min-h-[240px] md:order-2 md:h-auto' />
 
                     <div className='flex items-center px-6 py-10 md:order-1 md:px-12 md:py-14 lg:px-20'>
                         <div className='hero-logo'>
@@ -412,9 +405,18 @@ const Page = () => {
                 </Reveal>
             </section>
 
-            {/* ── Prenota: deep tomato red, copy left and booking right ── */}
-            <section id='reserve' className='bg-[#7d231e] px-6 py-20 md:px-12 md:py-28'>
-                <div className='mx-auto max-w-6xl'>
+            {/* ── Reserve: full-width photo of the table under a dark wash, copy and booking on top ── */}
+            <section id='reserve' className='relative overflow-hidden bg-[#0e0b09] px-6 py-24 md:px-12 md:py-36'>
+                <ResponsiveImg
+                    src='/images/pizza-yolk.jpg'
+                    sizes='100vw'
+                    alt=''
+                    loading='lazy'
+                    className='absolute inset-0 h-full w-full object-cover'
+                />
+                <div className='absolute inset-0 bg-[#0e0b09]/70' />
+                <div className='absolute inset-0 bg-gradient-to-t from-[#0e0b09] via-transparent to-[#0e0b09]/60' />
+                <div className='relative mx-auto max-w-6xl'>
                     <Reveal className='grid gap-8 md:grid-cols-[1fr_auto] md:items-end'>
                         <div>
                             <h2 className='font-stencil text-6xl leading-[0.95] text-[#f4efe4] md:text-8xl'>
