@@ -93,7 +93,7 @@ const HeroSlideshow = ({ className = '' }: { className?: string }) => {
                 {SLIDES.map((slide, i) => (
                     <span
                         key={slide.src}
-                        className={`h-0.5 w-6 transition-colors duration-700 ${i === active ? 'bg-[#f1e8d6]' : 'bg-[#f1e8d6]/35'}`}
+                        className={`h-0.5 w-6 transition-colors duration-700 ${i === active ? 'bg-[#f6efef]' : 'bg-[#f6efef]/35'}`}
                     />
                 ))}
             </div>

@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 
 // Same loader parameters; the wide theme on desktop, OpenTable's own standard (compact) theme on phones.
 const loaderSrc = (theme: 'wide' | 'standard') =>
-    `https://www.opentable.ca/widget/reservation/loader?rid=105955&type=standard&theme=${theme}&color=8&dark=true&iframe=false&domain=ca&lang=en-CA&newtab=false&ot_source=Restaurant%20website&font=arial&ot_logo=standard&primary_color=0e0b09&primary_font_color=f1e8d6&button_color=b8312b&button_font_color=ffffff&cfe=true`;
+    `https://www.opentable.ca/widget/reservation/loader?rid=105955&type=standard&theme=${theme}&color=8&dark=false&iframe=false&domain=ca&lang=en-CA&newtab=false&ot_source=Restaurant%20website&font=arial&ot_logo=standard&primary_color=f6efef&primary_font_color=3e1c1c&button_color=cf2327&button_font_color=f3e8d8&cfe=true`;
 
 const OpenTableWidget = ({
     theme = 'auto',

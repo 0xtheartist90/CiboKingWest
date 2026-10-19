@@ -350,8 +350,8 @@ const SECTIONS: Section[] = [
     }
 ];
 
-// Laid out like Cibo's printed menu card: black stencil headings and heavy dish names on cream
-// paper. Section names run down a sidebar on larger screens and across a swipeable row on phones.
+// Laid out like a printed menu card in the new site's style: Forum headings, spaced capitals for
+// dish names and dotted leaders to the prices. Section names run down a sidebar on larger screens and across a swipeable row on phones.
 const MenuTabs = () => {
     const [active, setActive] = useState(0);
     const tabs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -367,7 +367,7 @@ const MenuTabs = () => {
             <div className='relative -mx-6 md:mx-0'>
                 <div
                     role='tablist'
-                    className='flex snap-x scroll-px-6 gap-x-6 overflow-x-auto border-b border-[#141010]/15 px-6 pb-3 [scrollbar-width:none] md:sticky md:top-28 md:flex-col md:gap-0 md:overflow-visible md:border-b-0 md:border-l md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden'>
+                    className='flex snap-x scroll-px-6 gap-x-6 overflow-x-auto border-b border-[#3e1c1c]/15 px-6 pb-3 [scrollbar-width:none] md:sticky md:top-28 md:flex-col md:gap-0 md:overflow-visible md:border-b-0 md:border-l md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden'>
                     {SECTIONS.map((s, i) => (
                         <button
                             key={s.label}
@@ -377,51 +377,51 @@ const MenuTabs = () => {
                                 tabs.current[i] = el;
                             }}
                             onClick={() => select(i)}
-                            className={`font-stencil shrink-0 snap-start text-left text-lg whitespace-nowrap transition-colors md:-ml-px md:border-l-4 md:py-2.5 md:pl-5 md:text-xl ${
+                            className={`font-display shrink-0 snap-start text-left text-lg whitespace-nowrap transition-colors md:-ml-px md:border-l-4 md:py-2.5 md:pl-5 md:text-xl ${
                                 i === active
-                                    ? 'text-[#a8302a] md:border-[#a8302a]'
-                                    : 'text-[#141010]/55 hover:text-[#141010] md:border-transparent'
+                                    ? 'text-[#cf2327] md:border-[#cf2327]'
+                                    : 'text-[#3e1c1c]/55 hover:text-[#3e1c1c] md:border-transparent'
                             }`}>
                             {s.label}
                         </button>
                     ))}
                 </div>
-                <div className='pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#f4efe4] to-transparent md:hidden' />
+                <div className='pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#ece8e8] to-transparent md:hidden' />
             </div>
 
             <div role='tabpanel' className='min-w-0'>
-                <h3 className='font-stencil text-5xl text-[#141010] md:text-6xl'>{section.label}</h3>
-                {section.note && <p className='mt-2 text-sm text-[#141010]/60 italic'>{section.note}</p>}
+                <h3 className='font-display text-5xl text-[#3e1c1c] md:text-6xl'>{section.label}</h3>
+                {section.note && <p className='mt-2 text-sm text-[#3e1c1c]/60 italic'>{section.note}</p>}
 
                 {section.groups.map((group) => (
                     <div key={group.title ?? section.label} className='mt-10 first:mt-8'>
                         {group.title && (
-                            <h4 className='font-stencil mb-6 text-xl text-[#a8302a] md:text-2xl'>{group.title}</h4>
+                            <h4 className='font-display mb-6 text-xl text-[#cf2327] md:text-2xl'>{group.title}</h4>
                         )}
                         <div className='grid gap-x-12 gap-y-6 lg:grid-cols-2'>
                             {group.items.map((item) => (
                                 <div key={item.name} className='relative'>
                                     {item.gf && (
                                         <span
-                                            className='font-stencil absolute top-0.5 -left-7 hidden text-xs text-[#141010]/45 md:block'
+                                            className='font-display absolute top-0.5 -left-7 hidden text-xs text-[#3e1c1c]/45 md:block'
                                             title='Made with gluten-free ingredients'>
                                             GF
                                         </span>
                                     )}
                                     <div className='flex items-baseline gap-3'>
-                                        <h5 className='text-[0.95rem] font-extrabold tracking-wide text-[#141010] uppercase md:text-base'>
+                                        <h5 className='text-sm font-semibold tracking-[0.1em] text-[#3e1c1c] uppercase'>
                                             {item.gf && (
-                                                <span className='font-stencil mr-2 text-xs text-[#141010]/45 md:hidden'>
+                                                <span className='font-display mr-2 text-xs text-[#3e1c1c]/45 md:hidden'>
                                                     GF
                                                 </span>
                                             )}
                                             {item.name}
                                         </h5>
-                                        <span className='mb-1 flex-1 border-b border-dotted border-[#141010]/30' />
-                                        <span className='shrink-0 font-bold text-[#141010]'>{item.price}</span>
+                                        <span className='mb-1 flex-1 border-b border-dotted border-[#3e1c1c]/30' />
+                                        <span className='shrink-0 font-bold text-[#3e1c1c]'>{item.price}</span>
                                     </div>
                                     {item.desc && (
-                                        <p className='mt-1 text-[0.9375rem] leading-relaxed text-[#141010]/70'>
+                                        <p className='mt-1 text-[0.9375rem] leading-relaxed text-[#3e1c1c]/70'>
                                             {item.desc}
                                         </p>
                                     )}
@@ -431,7 +431,7 @@ const MenuTabs = () => {
                     </div>
                 ))}
 
-                {section.footer && <p className='mt-10 text-sm text-[#141010]/60 italic'>{section.footer}</p>}
+                {section.footer && <p className='mt-10 text-sm text-[#3e1c1c]/60 italic'>{section.footer}</p>}
             </div>
         </div>
     );
