@@ -53,21 +53,27 @@ const JSON_LD = {
     sameAs: ['https://www.instagram.com/cibo_winebar/']
 };
 
-// The weekly specials board. Everyday Half-Priced Drinks runs every day we're open; the rest sit on their days.
-const OFFERS = {
-    pizza: { title: 'Half-Price Pizza', detail: 'Every pizza 50% off', dot: 'bg-[#cf2327]' },
-    pasta: { title: '$15 Pasta', detail: 'Settebello, seven signature pastas', dot: 'bg-[#f3e8d8]' },
-    late: { title: 'Late Night', detail: 'Open until 2am', dot: 'bg-[#92936c]' },
-    mimosa: { title: 'Bottomless Mimosas', detail: '$30 · brunch 11:30am to 4pm', dot: 'bg-[#308d87]' }
-};
-
-const WEEK: { day: string; en: string; offers: (keyof typeof OFFERS)[] }[] = [
-    { day: 'Martedì', en: 'Tuesday', offers: ['pizza'] },
-    { day: 'Mercoledì', en: 'Wednesday', offers: ['pasta'] },
-    { day: 'Giovedì', en: 'Thursday', offers: ['late'] },
-    { day: 'Venerdì', en: 'Friday', offers: ['late'] },
-    { day: 'Sabato', en: 'Saturday', offers: ['mimosa', 'late'] },
-    { day: 'Domenica', en: 'Sunday', offers: ['mimosa'] }
+// The week at Cibo King West, one offer per line (kept in step with the Yorkville page).
+const WEEK = [
+    {
+        when: 'Every day · 2 to 6:30pm',
+        title: 'Everyday Half-Priced Drinks',
+        text: 'Every drink at half price, every afternoon we are open.',
+        highlight: true
+    },
+    { when: 'Lunch', title: 'Lunch in Fretta', text: 'Two courses for $25.' },
+    { when: 'Tuesday · All day', title: 'Half-Price Pizza', text: 'Every pizza on the menu at 50% off.' },
+    { when: 'Wednesday · All day', title: '$15 Pasta', text: 'Settebello: seven signature pastas, $15 each.' },
+    {
+        when: 'Thursday to Saturday · Until 2am',
+        title: 'Late Night',
+        text: 'Open until 2am, with cocktails and bottle service.'
+    },
+    {
+        when: 'Saturday & Sunday · 11:30am to 4pm',
+        title: 'Bottomless Mimosas',
+        text: 'Orange juice and prosecco for $30.'
+    }
 ];
 
 // Shown at their natural proportions, uncropped.
@@ -185,7 +191,9 @@ const Page = () => {
 
             {/* ── Hero: the red wordmark and the pitch on the blush background beside rounded photos, with the
                  booking strip underneath. Phones get the photos full-bleed behind the copy. ── */}
-            <section id='top' className='glow-top mt-16 flex flex-col md:mt-[72px] md:min-h-[calc(100svh-72px)]'>
+            <section
+                id='top'
+                className='glow-top relative z-20 mt-16 flex flex-col md:mt-[72px] md:min-h-[calc(100svh-72px)]'>
                 <div className='relative grid flex-1 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:gap-4 md:p-4 md:pl-0'>
                     {/* Phones: the photos fill the hero behind the copy. Larger screens: their own rounded column. */}
                     <HeroSlideshow className='absolute inset-0 md:relative md:inset-auto md:order-2 md:rounded-[17px]' />
@@ -231,76 +239,57 @@ const Page = () => {
                     </div>
                 </div>
 
-                {/* Booking strip: OpenTable's wide widget on larger screens, its compact one on phones */}
+                {/* Booking strip: OpenTable's wide widget on larger screens, its compact one on phones. The hero sits
+                     above the weekly overview so the widget's date and time dropdowns open over it instead of under it. */}
                 <div className='flex flex-col gap-5 border-t border-[#3e1c1c]/10 bg-[#ece8e8] px-6 py-8 md:flex-row md:items-center md:justify-between md:px-12 md:py-5 lg:px-20'>
                     <div className='font-display text-2xl text-[#3e1c1c]'>Book a Table</div>
                     <OpenTableWidget className='flex w-full md:w-auto md:justify-end' />
                 </div>
             </section>
 
-            {/* ── La Settimana: a specials card over a full-bleed photo under a warm brown wash. Everyday Half-Priced Drinks
-                 as a single line across the top, then each day with its offers on dotted leaders ── */}
-            <section id='week' className='relative overflow-hidden px-6 py-20 md:px-12 md:py-28'>
-                <ResponsiveImg
-                    src='/images/pappardelle-spread.jpg'
-                    sizes='100vw'
-                    alt=''
-                    loading='lazy'
-                    className='absolute inset-0 h-full w-full object-cover object-[50%_45%]'
-                />
-                <div className='absolute inset-0 bg-[#2a1212]/80' />
-                <div className='absolute inset-0 bg-gradient-to-b from-[#2a1212]/50 via-transparent to-[#2a1212]/60' />
-                <div className='relative mx-auto max-w-4xl text-[#f6efef]'>
-                    <Reveal className='flex flex-col items-center text-center'>
-                        <Eyebrow className='text-[#f3e8d8]/80'>Every week at Cibo</Eyebrow>
-                        <Title className='mt-5'>La Settimana</Title>
-                        <p className='mt-4 text-[#f6efef]/65'>Tuesday to Sunday · Closed Mondays</p>
+            {/* ── Every week: the week's offers as one clean list, heading and a rounded photo alongside
+                 (the same layout as the Yorkville page) ── */}
+            <section id='week' className='glow-top px-6 pt-24 pb-20 md:px-12 md:pt-36 md:pb-28'>
+                <div className='mx-auto grid max-w-6xl gap-10 md:grid-cols-[0.8fr_1.2fr] md:gap-16'>
+                    <Reveal className='md:sticky md:top-28 md:self-start'>
+                        <h2 className='font-display text-5xl leading-[0.95] text-[#cf2327] md:text-7xl'>
+                            Every week
+                            <br />
+                            at Cibo
+                        </h2>
+                        <div className='mt-8 aspect-[4/5] overflow-hidden rounded-[17px]'>
+                            <LightboxImage
+                                src='/images/pappardelle-spread.jpg'
+                                sizes='(max-width: 767px) 100vw, 40vw'
+                                alt='Pappardelle with burrata and prosciutto on a table to share'
+                                className='h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]'
+                            />
+                        </div>
+                        <CallButton className='mt-8 hidden md:inline-block' />
                     </Reveal>
 
-                    <Reveal className='mt-12'>
-                        <div className='flex flex-col items-center gap-1 border-y border-[#f3e8d8]/30 py-6 text-center md:flex-row md:justify-between md:gap-6 md:text-left'>
-                            <span className='font-display text-3xl text-[#f3e8d8]'>Everyday Half-Priced Drinks</span>
-                            <span className='text-[#f6efef]/85'>Every day, 2 to 6:30pm</span>
-                        </div>
-
-                        <dl className='mt-4'>
-                            {WEEK.map((row) => (
-                                <div
-                                    key={row.day}
-                                    className='grid gap-2 border-b border-[#f6efef]/10 py-5 md:grid-cols-[180px_1fr] md:gap-8'>
-                                    <dt className='flex items-baseline gap-3 md:flex-col md:gap-0.5'>
-                                        <span className='font-display text-2xl'>{row.day}</span>
-                                        <span className='text-xs tracking-[0.2em] text-[#f6efef]/45 uppercase'>
-                                            {row.en}
-                                        </span>
-                                    </dt>
-                                    <dd className='space-y-2.5 md:pt-1'>
-                                        {row.offers.map((key) => {
-                                            const offer = OFFERS[key];
-
-                                            return (
-                                                <div key={key} className='flex flex-wrap items-baseline gap-x-3'>
-                                                    <span
-                                                        className={`h-2 w-2 shrink-0 translate-y-[-1px] rounded-full ${offer.dot}`}
-                                                        aria-hidden='true'
-                                                    />
-                                                    <span className='text-sm font-semibold tracking-[0.12em] uppercase'>
-                                                        {offer.title}
-                                                    </span>
-                                                    <span className='mb-1 hidden flex-1 border-b border-dotted border-[#f6efef]/25 sm:block' />
-                                                    <span className='w-full pl-5 text-[0.9375rem] text-[#f6efef]/65 sm:w-auto sm:pl-0 sm:text-right'>
-                                                        {offer.detail}
-                                                    </span>
-                                                </div>
-                                            );
-                                        })}
-                                    </dd>
-                                </div>
+                    <Reveal>
+                        <ul className='border-t border-[#3e1c1c]/20'>
+                            {WEEK.map((item) => (
+                                <li
+                                    key={item.title}
+                                    className='grid gap-1 border-b border-[#3e1c1c]/20 py-6 md:grid-cols-[1fr_auto] md:items-baseline md:gap-8'>
+                                    <div>
+                                        <h3
+                                            className={`font-display text-3xl leading-none md:text-4xl ${
+                                                item.highlight ? 'text-[#cf2327]' : ''
+                                            }`}>
+                                            {item.title}
+                                        </h3>
+                                        <p className='mt-2 text-[#3e1c1c]/70'>{item.text}</p>
+                                    </div>
+                                    <div className='order-first text-[0.65rem] font-semibold tracking-[0.2em] text-[#3e1c1c]/55 uppercase md:order-none md:text-right'>
+                                        {item.when}
+                                    </div>
+                                </li>
                             ))}
-                        </dl>
-                        <p className='mt-8 text-center text-sm text-[#f6efef]/55'>
-                            At lunch: <span className='text-[#f6efef]/85'>Lunch in Fretta</span>, two courses for $25.
-                        </p>
+                        </ul>
+                        <p className='mt-6 text-sm text-[#3e1c1c]/55'>Open Tuesday to Sunday · Closed Mondays</p>
                     </Reveal>
                 </div>
             </section>
@@ -482,7 +471,7 @@ const Page = () => {
             </section>
 
             {/* ── Reserve: full-width photo of the table under a warm brown wash, copy and booking on top ── */}
-            <section id='reserve' className='relative overflow-hidden px-6 py-24 md:px-12 md:py-36'>
+            <section id='reserve' className='relative z-10 px-6 py-24 md:px-12 md:py-36'>
                 <ResponsiveImg
                     src='/images/pizza-yolk.jpg'
                     sizes='100vw'
@@ -607,7 +596,7 @@ const Page = () => {
                                     { day: 'Thu to Sat', time: '11:30am to 2am' },
                                     { day: 'Monday', time: 'Closed' },
                                     { day: 'Half-priced drinks', time: 'Daily, 2 to 6:30pm' },
-                                    { day: 'Brunch', time: 'Sat & Sun, 11:30 to 4pm' }
+                                    { day: 'Bottomless mimosas', time: 'Sat & Sun, 11:30 to 4pm' }
                                 ].map((row) => (
                                     <div key={row.day} className='flex items-baseline justify-between gap-4'>
                                         <dt className='text-[#3e1c1c]/60'>{row.day}</dt>
